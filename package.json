@@ -1,0 +1,39 @@
+{
+  "name": "dp-dashboard",
+  "version": "0.0.1",
+  "description": "Status updates and important information for wall TVs in Digital Publishing",
+  "main": "index.html",
+  "author": "Crispin Merriman & Jon Jones",
+  "license": "MIT",
+  "dependencies": {
+    "awesome-typescript-loader": "^3.2.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "custom-tslint-formatters": "^2.1.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-tslint": "^0.1.24",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-watch": "^4.3.1",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "tslint": "^5.5.0",
+    "tslint-consistent-codestyle": "^1.5.1",
+    "tslint-loader": "^3.5.3",
+    "watch": "^1.0.2",
+    "webpack": "^3.4.1"
+  },
+  "scripts": {
+    "build": "rollup -c -m",
+    "watch": "rollup -c -w",
+    "webpack-watch": "webpack -w",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  }
+}
