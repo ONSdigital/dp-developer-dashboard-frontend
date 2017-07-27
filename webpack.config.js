@@ -6,7 +6,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader')
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
-        app: './main.ts'
+        app: './main.tsx'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -53,10 +53,14 @@ module.exports = {
     },
     devtool: "source-map",
     resolve: {
-        extensions: ['.ts']
+        extensions: ['.ts', '.tsx']
     },
     plugins: [
         new ExtractTextPlugin("main.css"),
         new CheckerPlugin()
-    ]
+    ],
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    },
 };
