@@ -2,7 +2,7 @@ import * as React from "react";
 import { Component } from "react";
 
 interface Props {
-    text: string
+    text?: string
 }
 
 interface State {
@@ -18,7 +18,11 @@ export default class App extends Component<Props, State> {
         }
     }
 
-    componentWillMount() {
+    static defaultProps: Partial<Props> = {
+        text: "Default text"
+    }
+
+    componentWillMount(): void {
         setInterval(() => {
             const date: Date = new Date();
             this.setState({

@@ -3,6 +3,6 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 
 ReactDOM.render(
-    <App text="Body text"/>,
+    <App text="New text"/>,
     document.getElementById('root')
 );
