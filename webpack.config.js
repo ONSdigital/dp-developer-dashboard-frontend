@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { CheckerPlugin } = require('awesome-typescript-loader')
-const formatter = require('eslint-friendly-formatter');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),

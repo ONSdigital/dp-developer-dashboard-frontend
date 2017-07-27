@@ -3,14 +3,20 @@
         "indent": [true, "spaces"],
         "no-unused-variable": true,
         "no-duplicate-variable": true,
-		"triple-equals": true,
+        "triple-equals": true,
+        "prefer-const": true,
+        "array-type": [true, "array"],
+        "class-name": true,
+        "no-unnecessary-initializer": true,
         "variable-name": [true, "ban-keywords"],
         "no-any": true,
         "no-empty-interface": true,
         "only-arrow-functions": [true, "allow-named-functions"],
         "no-debugger": true,
         "no-empty": true,
-        "no-unsafe-any": true
+        "one-variable-per-declaration": true,
+        "no-unsafe-any": true,
+        "semicolon": [true, "always"]
     },
     "include": [
         "./src/**/*.ts"
