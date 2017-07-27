@@ -3,7 +3,7 @@
         "indent": [true, "spaces"],
         "no-unused-variable": true,
         "no-duplicate-variable": true,
-		"triple-equals": [true, "allow-null-check"],
+		"triple-equals": true,
         "variable-name": [true, "ban-keywords"],
         "no-any": true,
         "no-empty-interface": true,
