@@ -15,7 +15,7 @@
         "no-debugger": true,
         "no-empty": true,
         "one-variable-per-declaration": true,
-        "typedef": true
+        "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "arrow-parameter"]
     },
     "include": [
         "./src/**/*.ts"
