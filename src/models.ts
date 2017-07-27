@@ -1,14 +1,14 @@
-interface Alert {
+export interface Alert {
     title: string,
     description: string,
-    date: Date,
+    date: number,
     error?: string
 }
 
-interface Notification {
+export interface Notification {
     title: string,
     description: string,
-    date: Date,
+    date: number,
     type: string,
     error?: string
 }
