@@ -1,12 +1,16 @@
 {   
-    "rulesDirectory": ["./node_modules/tslint-consistent-codestyle"],
 	"rules": {
         "indent": [true, "spaces"],
         "no-unused-variable": true,
         "no-duplicate-variable": true,
 		"triple-equals": [true, "allow-null-check"],
         "variable-name": [true, "ban-keywords"],
-        "no-any": true
+        "no-any": true,
+        "no-empty-interface": true,
+        "only-arrow-functions": [true, "allow-named-functions"],
+        "no-debugger": true,
+        "no-empty": true,
+        "no-unsafe-any": true
     },
     "include": [
         "./src/**/*.ts"

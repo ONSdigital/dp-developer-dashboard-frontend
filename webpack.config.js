@@ -31,8 +31,7 @@ module.exports = {
                 loader: 'tslint-loader',
                 options: { 
                     typeCheck: true,
-                    tsConfigFile: 'tsconfig.json',
-                    formattersDirectory: 'node_modules/tslint-loader/formatters/'
+                    tsConfigFile: 'tsconfig.json'
                 }
             },
             {
