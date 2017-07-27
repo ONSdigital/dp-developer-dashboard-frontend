@@ -70,6 +70,7 @@
 "use strict";
 
 
+exports.__esModule = true;
 var a_component_1 = __webpack_require__(1);
 console.log(a_component_1.aThing("pie"));
 
@@ -80,6 +81,7 @@ console.log(a_component_1.aThing("pie"));
 "use strict";
 
 
+exports.__esModule = true;
 function aThing(thing) {
     console.log(thing);
     if (thing == "stuff") {
