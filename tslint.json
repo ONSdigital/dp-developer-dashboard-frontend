@@ -18,6 +18,6 @@
         "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "arrow-parameter"]
     },
     "include": [
-        "./src/**/*.ts"
+        "./src/**/*"
     ]
 }

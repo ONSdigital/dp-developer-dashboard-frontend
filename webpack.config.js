@@ -53,7 +53,7 @@ module.exports = {
     },
     devtool: "source-map",
     resolve: {
-        extensions: ['.ts', '.tsx']
+        extensions: ['.ts', '.tsx', '.js', '.json']
     },
     plugins: [
         new ExtractTextPlugin("main.css"),
