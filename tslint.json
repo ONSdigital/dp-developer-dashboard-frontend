@@ -14,8 +14,8 @@
         "only-arrow-functions": [true, "allow-named-functions"],
         "no-debugger": true,
         "no-empty": true,
-        "one-variable-per-declaration": true,
-        "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "arrow-parameter"]
+        "one-variable-per-declaration": [true],
+        "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "arrow-parameter", "variable-declaration", "property-declaration", "member-variable-declaration"]
     },
     "include": [
         "./src/**/*"

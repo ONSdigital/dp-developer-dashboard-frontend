@@ -6,7 +6,7 @@ interface State {
     notifications: Notification[]
 }
 
-const initialState: State = {
+export const initialState: State = {
     alerts: [],
     notifications: []
 }

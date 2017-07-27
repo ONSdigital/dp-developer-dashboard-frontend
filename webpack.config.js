@@ -30,7 +30,8 @@ module.exports = {
                 loader: 'tslint-loader',
                 options: { 
                     typeCheck: true,
-                    tsConfigFile: 'tsconfig.json'
+                    tsConfigFile: 'tsconfig.json',
+                    visualStudioErrorFormat: true
                 }
             },
             {
