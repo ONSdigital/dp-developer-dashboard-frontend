@@ -14,8 +14,8 @@
         "only-arrow-functions": [true, "allow-named-functions"],
         "no-debugger": true,
         "no-empty": true,
-        "one-variable-per-declaration": true
-        // "no-unsafe-any": true
+        "one-variable-per-declaration": true,
+        "typedef": true
     },
     "include": [
         "./src/**/*.ts"
