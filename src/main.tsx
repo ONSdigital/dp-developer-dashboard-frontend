@@ -3,13 +3,12 @@ import * as ReactDOM from 'react-dom';
 import './scss/main.scss';
 
 import { store } from './utilities/store';
-import { Provider } from 'react-redux';
+import createProvider from "./utilities/provider/createProvider";
+import App, { AppProps } from './App';
 
-import App from './App';
+const Provider: any = createProvider<AppProps>();
 
 ReactDOM.render(
-    <Provider store={store} >
-        <App text="New text"/>
-    </Provider>,
+    <Provider store={store} target={App} />,
     document.getElementById('root')
 );

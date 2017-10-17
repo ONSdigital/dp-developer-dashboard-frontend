@@ -23,7 +23,7 @@ export default class Notification extends Component<Props, State> {
         // }
     }
 
-    render(): JSX.Element {
+    render() {
         return (
             <div className="notification">
                 <h1 className="notification__title">{this.props.title}</h1>

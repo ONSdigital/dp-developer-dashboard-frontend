@@ -9,13 +9,13 @@
         "class-name": true,
         "no-unnecessary-initializer": true,
         "variable-name": [true, "ban-keywords"],
-        "no-any": true,
+        "no-any": false,
         "no-empty-interface": true,
         "only-arrow-functions": [true, "allow-named-functions"],
         "no-debugger": true,
         "no-empty": true,
         "one-variable-per-declaration": [true],
-        "typedef": [true, "call-signature", "arrow-call-signature", "parameter", "arrow-parameter", "variable-declaration", "property-declaration", "member-variable-declaration"]
+        "typedef": [true, "parameter", "variable-declaration"]
     },
     "include": [
         "./src/**/*"

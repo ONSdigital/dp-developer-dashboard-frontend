@@ -4,8 +4,8 @@
         "jsx": "react",
         "target": "es5",
         "module": "commonjs",
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
+        "noImplicitAny": false,
+        "noImplicitReturns": false,
         "sourceMap": true
     },
     "include": [

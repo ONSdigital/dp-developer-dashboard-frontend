@@ -1,11 +1,16 @@
 import * as React from "react";
 import { Component } from "react";
-import { Alert, Notification } from "./models";
+import { connect } from "react-redux";
+
+import { Alert, Notification } from "./utilities/models";
+import { addAlert } from './utilities/actions';
 import AlertComponent from "./components/alert/alert";
 import NotificationComponent from "./components/notification/notification";
 
-interface Props {
-    text?: string
+export interface AppProps {
+    notifications: Notification[],
+    alerts: Alert[],
+    dispatch: Function
 }
 
 interface State {
@@ -13,42 +18,41 @@ interface State {
     notifications: Notification[]
 }
 
-export default class App extends Component<Props, State> {
-    constructor(props: Props) {
+class App extends Component<AppProps, State> {
+    constructor(props: AppProps) {
         super(props);
-
-        this.state = {
-            alerts: [
-                {
-                    title: "Test alert",
-                    description: "this is a test alert",
-                    date: Date.now()
-                }
-            ],
-            notifications: [
-                {
-                    title: "Test notification",
-                    description: "this is a test notification",
-                    date: Date.now(),
-                    type: "Deployment"
-                }
-            ]
-        }
     }
 
-    render(): JSX.Element {
-        const alerts: Alert[] = this.state.alerts || [];
-        const notifications: Notification[] = this.state.notifications || [];
+    componentWillMount() {
+        const newAlert: Alert = {
+            title: "Meh",
+            description: "Descripty",
+            date: Date.now()
+        }
+        this.props.dispatch(addAlert(newAlert));
+    }
+
+    render() {
+        const alerts: Alert[] = this.props.alerts || [];
+        const notifications: Notification[] = this.props.notifications || [];
         return (
             <div>
-                {alerts.map((alert: Alert, index: number): JSX.Element => {
+                {alerts.map((alert: Alert, index: number) => {
                     return (<AlertComponent id={index} {...alert}/>)
                 }) }
 
-                {notifications.map((notification: Notification, index: number): JSX.Element => {
+                {notifications.map((notification: Notification, index: number) => {
                     return (<NotificationComponent id={index} {...notification}/>)
                 }) }
             </div>
         );
     }
 }
+
+function mapStateToProps(state: any, componentsProps?: AppProps) {
+  return {
+      alerts: state.alerts
+  };
+}
+
+export default connect(mapStateToProps)(App);

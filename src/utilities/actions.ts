@@ -1,4 +1,4 @@
-import { Alert, Notification } from "../models";
+import { Alert, Notification } from "../utilities/models";
 
 export interface Action {
     type: string,
