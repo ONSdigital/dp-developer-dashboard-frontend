@@ -1,4 +1,4 @@
-import { Alert, Notification } from "../models";
+import { Alert, Notification } from "../utilities/models";
 import { Action, ADD_ALERT, REMOVE_ALERT } from '../utilities/actions';
 
 interface State {
