@@ -9,12 +9,16 @@
                 </div>
             </div>
         </div>
-        <Warnings v-else :warnings='buildWarningItems()' />
+        <div v-else>
+            <Warnings :warnings='buildWarningItems()' />
+            <Releases :releases="releases" />
+        </div>
     </div>
 </template>
 
 <script>
 import Warnings from './Warnings';
+import Releases from './Releases';
 import firebase from 'firebase';
 import dateFormat from 'dateformat';
 
@@ -25,11 +29,13 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const pullRequestsRef = db.ref('pull_requests');
+const releasesRef = db.ref('releases');
 
 export default {
     name: 'Home',
     components: {
-        Warnings
+        Warnings,
+        Releases
     },
     data () {
         return {
@@ -42,6 +48,13 @@ export default {
             readyCallback () {
                 this.isLoading = false;
             }
+        },
+        releases: {
+            source: releasesRef,
+            readyCallback () {
+                this.isLoading = false;
+            },
+            asObject: true
         }
     },
     ready () {
@@ -69,7 +82,7 @@ export default {
                             type: 'Pull request',
                             name: pr.repo,
                             sub: pr.title,
-                            date: dateFormat(pr.created_date, 'dd/mm/yy - h:MM:ss tt'),
+                            date: dateFormat(pr.created_date, 'dd mmm yy - h:MM:ss tt'),
                             user: { ...pr.user }
                         });
                     });

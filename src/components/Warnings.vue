@@ -4,7 +4,7 @@
             <li class="warnings__item" v-bind:key="warning.id" v-for="warning in warnings">
                 <span class="warnings__type">{{ warning.type }}</span>
                 <span class="warnings__image"><img :src="warning.user.avatar"></span>
-                <span class="warnings__heading">{{ warning.name }}</span>
+                <h3 class="warnings__heading">{{ warning.name }}</h3>
                 <span class="warnings__detail">{{ warning.sub }}</span>
                 <span class="warnings__detail">{{ warning.date }}</span>
                 <span class="warnings__detail">{{ warning.user.name }}</span>
@@ -26,7 +26,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 .warnings {
     list-style: none;
@@ -61,6 +60,8 @@ export default {
         padding: 0.8rem 1rem 0.5rem 1rem;
         display: block;
         font-size: 1.4rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     &__detail {
