@@ -82,7 +82,7 @@ export default {
                             type: 'Pull request',
                             name: pr.repo,
                             sub: pr.title,
-                            date: dateFormat(pr.created_date, 'dd mmm yy - h:MM:ss tt'),
+                            date: dateFormat(pr.created_date, 'dd mmm yy (h:MM:ss tt)'),
                             user: { ...pr.user }
                         });
                     });

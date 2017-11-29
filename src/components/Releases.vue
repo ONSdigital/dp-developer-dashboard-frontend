@@ -5,24 +5,28 @@
                 Today's releases
                 <span class="releases__heading-date">({{ todaysDate }})</span>
             </h2>
-            <ol class="releases__list">
+            <ol v-if="releases.today" class="releases__list">
                 <li class="releases__item" v-bind:key="release.title" v-for="release in releases.today">
                     {{ release.title }}
-                    <br>
                     <span v-if="!release.isFinalised"><strong>Release date not finalised</strong></span>
+                    <span v-if="release.isCancelled"><strong>Cancelled</strong></span>
                 </li>
             </ol>
+            <p v-else>No releases today</p>
         </div>
         <div class="releases__column">
             <h2>
                 Tomorrow's releases
                 <span class="releases__heading-date">({{ tomorrowsDate }})</span>
             </h2>
-            <ol class="releases__list">
+            <ol v-if="releases.tomorrow" class="releases__list">
                 <li class="releases__item" v-bind:key="release.title" v-for="release in releases.tomorrow">
                     {{ release.title }}
+                    <span v-if="!release.isFinalised"><strong>Release date not finalised</strong></span>
+                    <span v-if="release.isCancelled"><strong>Cancelled</strong></span>
                 </li>
             </ol>
+            <p v-else>No releases tomorrow</p>
         </div>
     </div>
 </template>

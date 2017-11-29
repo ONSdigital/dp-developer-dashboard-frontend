@@ -67,6 +67,9 @@ export default {
     &__detail {
         display: block;
         margin: 0.5rem 1rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     &__image {
