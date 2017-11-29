@@ -37,8 +37,7 @@ export default {
     justify-content: flex-start;
 
     &__item {
-        color: black;
-        background-color: #e7b416;
+        background-color: #E2BC22;
         flex-grow: 1;
         flex-basis: 0;
         min-width: 20%;

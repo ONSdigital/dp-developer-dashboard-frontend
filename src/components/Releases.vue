@@ -59,7 +59,7 @@ export default {
     flex-direction: row;
 
     &__column {
-        background-color: #f8f8f8;
+        background-color: #EAEAEA;
         margin-left: 0.5rem;
         margin-right: 0.5rem;
         flex-grow: 1;

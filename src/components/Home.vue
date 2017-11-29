@@ -12,6 +12,7 @@
         <div v-else>
             <Warnings :warnings='buildWarningItems()' />
             <Releases :releases="releases" />
+            <DevelopBuildStatuses :developBuildStatuses="developBuildStatuses" />
         </div>
     </div>
 </template>
@@ -19,6 +20,7 @@
 <script>
 import Warnings from './Warnings';
 import Releases from './Releases';
+import DevelopBuildStatuses from './DevelopBuildStatuses';
 import firebase from 'firebase';
 import dateFormat from 'dateformat';
 
@@ -30,12 +32,14 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const pullRequestsRef = db.ref('pull_requests');
 const releasesRef = db.ref('releases');
+const developBuildStatusesRef = db.ref('develop_build_statuses');
 
 export default {
     name: 'Home',
     components: {
         Warnings,
-        Releases
+        Releases,
+        DevelopBuildStatuses
     },
     data () {
         return {
@@ -51,6 +55,13 @@ export default {
         },
         releases: {
             source: releasesRef,
+            readyCallback () {
+                this.isLoading = false;
+            },
+            asObject: true
+        },
+        developBuildStatuses: {
+            source: developBuildStatusesRef,
             readyCallback () {
                 this.isLoading = false;
             },
@@ -97,9 +108,19 @@ export default {
 }
 </script>
 
+<style lang="scss">
+body, html {
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+</style>
+
+
 <style lang="scss" scoped>
 .loader {
     position: relative;
+    margin-top: 10rem;
     margin-left: 1rem;
     display: flex;
     justify-content: center;
