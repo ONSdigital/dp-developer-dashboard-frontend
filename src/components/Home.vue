@@ -10,17 +10,17 @@
             </div>
         </div>
         <div v-else>
-            <Warnings :warnings='buildWarningItems()' />
+            <BuildStatuses :buildStatuses="buildBuildStatuses()" />
+            <PullRequests :pullRequests="buildPullRequests()" />
             <Releases :releases="releases" />
-            <DevelopBuildStatuses :developBuildStatuses="developBuildStatuses" />
         </div>
     </div>
 </template>
 
 <script>
-import Warnings from './Warnings';
 import Releases from './Releases';
-import DevelopBuildStatuses from './DevelopBuildStatuses';
+import BuildStatuses from './BuildStatuses';
+import PullRequests from './PullRequests';
 import firebase from 'firebase';
 import dateFormat from 'dateformat';
 
@@ -32,14 +32,14 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const pullRequestsRef = db.ref('pull_requests');
 const releasesRef = db.ref('releases');
-const developBuildStatusesRef = db.ref('develop_build_statuses');
+const buildStatusesRef = db.ref('build_statuses');
 
 export default {
     name: 'Home',
     components: {
-        Warnings,
         Releases,
-        DevelopBuildStatuses
+        BuildStatuses,
+        PullRequests
     },
     data () {
         return {
@@ -60,18 +60,55 @@ export default {
             },
             asObject: true
         },
-        developBuildStatuses: {
-            source: developBuildStatusesRef,
+        buildStatuses: {
+            source: buildStatusesRef,
             readyCallback () {
                 this.isLoading = false;
-            },
-            asObject: true
+            }
         }
     },
     ready () {
         this.isLoading = false;
     },
     methods: {
+        buildBuildStatuses () {
+            const failedBuilds = [];
+
+            this.buildStatuses.forEach(repo => {
+                repo['.value'].forEach(branch => {
+                    if (branch.status === 'succeeded') {
+                        return;
+                    }
+                    failedBuilds.push({
+                        repo: repo['.key'],
+                        branch: branch.name,
+                        key: repo + branch.name
+                    });
+                });
+            });
+
+            return failedBuilds;
+        },
+        buildPullRequests () {
+            const pullRequests = [];
+            this.pullRequests.forEach(repo => {
+                try {
+                    repo['.value'].forEach(pr => {
+                        pullRequests.push({
+                            id: pr['.key'],
+                            type: 'Pull request',
+                            name: pr.repo,
+                            sub: pr.title,
+                            date: dateFormat(pr.created_date, 'dd mmm yy (h:MM:ss tt)'),
+                            user: { ...pr.user }
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error trying to loop through pull requests for ' + repo);
+                }
+            });
+            return pullRequests;
+        },
         buildWarningItems () {
             // const pullRequests = this.pullRequests.map(pr => {
             //     return {

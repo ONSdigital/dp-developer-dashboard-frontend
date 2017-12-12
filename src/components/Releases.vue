@@ -8,7 +8,7 @@
             <ol v-if="releases.today" class="releases__list">
                 <li class="releases__item" v-bind:key="release.title" v-for="release in releases.today">
                     {{ release.title }}
-                    <span v-if="!release.isFinalised"><strong>Release date not finalised</strong></span>
+                    <span v-if="!release.isFinalised"><strong>(Release date not finalised)</strong></span>
                     <span v-if="release.isCancelled"><strong>Cancelled</strong></span>
                 </li>
             </ol>
@@ -22,7 +22,7 @@
             <ol v-if="releases.tomorrow" class="releases__list">
                 <li class="releases__item" v-bind:key="release.title" v-for="release in releases.tomorrow">
                     {{ release.title }}
-                    <span v-if="!release.isFinalised"><strong>Release date not finalised</strong></span>
+                    <span v-if="!release.isFinalised"><strong>(Release date not finalised)</strong></span>
                     <span v-if="release.isCancelled"><strong>Cancelled</strong></span>
                 </li>
             </ol>
@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2 {
+    font-size: 1.8rem;
+}
+
 .releases {
     display: flex;
     flex-direction: row;
@@ -74,12 +78,14 @@ export default {
     }
 
     &__item {
-        margin-bottom: 1rem;
+        margin-bottom: 1.3rem;
+        font-size: 1.5rem;
     }
 
     &__heading-date {
         font-size: 1rem;
         margin-left: 1rem;
+        font-size: 1.3rem;
     }
 }
 </style>
