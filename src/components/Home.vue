@@ -73,21 +73,40 @@ export default {
     methods: {
         buildBuildStatuses () {
             const failedBuilds = [];
+            const inProgressBuilds = [];
 
             this.buildStatuses.forEach(repo => {
                 repo['.value'].forEach(branch => {
                     if (branch.status === 'succeeded') {
                         return;
                     }
-                    failedBuilds.push({
-                        repo: repo['.key'],
-                        branch: branch.name,
-                        key: repo + branch.name
-                    });
+                    if (branch.status === 'error' || branch.status === 'failed') {
+                        failedBuilds.push({
+                            repo: repo['.key'],
+                            branch: branch.name,
+                            key: `${repo['.key']}_${branch.name}`,
+                            status: branch.status,
+                            id: branch.id,
+                            type: branch.type
+                        });
+                    }
+                    if (branch.status === 'pending' || branch.status === 'started' || branch.status === 'paused') {
+                        inProgressBuilds.push({
+                            repo: repo['.key'],
+                            branch: branch.name,
+                            key: `${repo['.key']}_${branch.name}`,
+                            status: branch.status,
+                            id: branch.id,
+                            type: branch.type
+                        });
+                    }
                 });
             });
 
-            return failedBuilds;
+            return {
+                failed: failedBuilds,
+                in_progress: inProgressBuilds
+            };
         },
         buildPullRequests () {
             const pullRequests = [];
