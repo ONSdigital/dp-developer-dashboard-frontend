@@ -1,6 +1,5 @@
 <template>
 <div>
-    <div class="updated-on">Last updated: {{ updatedOn }}</div>
     <div class="releases">
         <div class="releases__column">
             <h2 class="releases__heading">
@@ -32,6 +31,7 @@
             <p v-else>No releases tomorrow</p>
         </div>
     </div>
+    <p class="updated-date">Releases updated on: {{ updatedOn }}</p>
 </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
     watch: {
         releases (newReleases) {
             this.releasesClone = {...newReleases};
-            this.updatedOn = dateFormat(new Date(this.releasesClone.updated_on), 'dd mmm h:MM:ss');
+            this.updatedOn = dateFormat(new Date(this.releasesClone.updated_on), 'dd mmm yy (h:MM:ss tt)');
             this.todaysDate = dateFormat(new Date(this.releasesClone.updated_on), 'dddd dd mmmm');
             this.tomorrowsDate = dateFormat(new Date(new Date(this.releasesClone.updated_on).getTime() + (24 * 60 * 60 * 1000)), 'dddd dd mmmm');
         }
@@ -69,11 +69,12 @@ export default {
 
 <style lang="scss" scoped>
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 }
 
-.updated-on {
-    margin-left: 0.5rem;
+.updated-date {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
 .releases {
@@ -81,12 +82,12 @@ h2 {
     flex-direction: row;
 
     &__column {
-        background-color: #EAEAEA;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
         flex-grow: 1;
         flex-basis: 0;
-        padding: 0 1rem;
+
+        &:first-of-type {
+            margin-right: 1rem;
+        }
     }
 
     &__list {
@@ -97,7 +98,7 @@ h2 {
 
     &__item {
         margin-bottom: 1.3rem;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     &__heading {
@@ -107,7 +108,7 @@ h2 {
     &__heading-date {
         font-size: 1rem;
         margin-left: 1rem;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 }
 </style>
