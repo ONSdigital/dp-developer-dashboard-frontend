@@ -20,6 +20,7 @@ module.exports = {
         'no-return-assign': ['off'],
         'semi': ['off'],
         'indent': ["warn", 4],
+        'quotes': 0,
         // allow paren-less arrow functions
         'arrow-parens': 0,
         // allow async-await

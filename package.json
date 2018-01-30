@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Status updates and important information for wall TVs in Digital Publishing",
   "author": "Crispioso <crispin.merriman@gmail.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
