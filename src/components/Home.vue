@@ -9,10 +9,14 @@
                 </div>
             </div>
         </div>
-        <div v-else>
-            <BuildStatuses :buildStatuses="buildBuildStatuses()" />
-            <PullRequests :pullRequests="buildPullRequests()" />
-            <Releases :releases="releases" />
+        <div class="page" v-else>
+            <div class="page__body">
+                <BuildStatuses :buildStatuses="buildBuildStatuses()" />
+                <PullRequests :pullRequests="buildPullRequests()" />
+            </div>
+            <div class="page__footer">
+                <Releases :releases="releases" />
+            </div>
         </div>
     </div>
 </template>
@@ -74,38 +78,39 @@ export default {
         buildBuildStatuses () {
             const failedBuilds = [];
             const inProgressBuilds = [];
+            const pausedBuilds = [];
 
             this.buildStatuses.forEach(repo => {
                 repo['.value'].forEach(branch => {
                     if (branch.status === 'succeeded') {
                         return;
                     }
-                    if (branch.status === 'error' || branch.status === 'failed') {
-                        failedBuilds.push({
-                            repo: repo['.key'],
-                            branch: branch.name,
-                            key: `${repo['.key']}_${branch.name}`,
-                            status: branch.status,
-                            id: branch.id,
-                            type: branch.type
-                        });
+
+                    const build = {
+                        repo: repo['.key'],
+                        branch: branch.name,
+                        key: `${repo['.key']}_${branch.name}`,
+                        status: branch.status,
+                        id: branch.id,
+                        type: branch.type,
+                        updated_on: dateFormat(branch.updated_on, "dd mmm yy (h:MM:ss tt)") || "not available"
                     }
-                    if (branch.status === 'pending' || branch.status === 'started' || branch.status === 'paused') {
-                        inProgressBuilds.push({
-                            repo: repo['.key'],
-                            branch: branch.name,
-                            key: `${repo['.key']}_${branch.name}`,
-                            status: branch.status,
-                            id: branch.id,
-                            type: branch.type
-                        });
+                    if (branch.status === 'error' || branch.status === 'failed') {
+                        failedBuilds.push(build);
+                    }
+                    if (branch.status === 'pending' || branch.status === 'started') {
+                        inProgressBuilds.push(build);
+                    }
+                    if (branch.status === 'paused') {
+                        pausedBuilds.push(build);
                     }
                 });
             });
 
             return {
                 failed: failedBuilds,
-                in_progress: inProgressBuilds
+                in_progress: inProgressBuilds,
+                paused: pausedBuilds
             };
         },
         buildPullRequests () {
@@ -174,6 +179,17 @@ body, html {
 
 
 <style lang="scss" scoped>
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    &__body {
+        flex-grow: 1;
+        overflow: scroll;
+    }
+}
+
 .loader {
     position: relative;
     margin-top: 10rem;
@@ -193,7 +209,6 @@ body, html {
         left: 48%;
     }
 }
-
 
 $waves: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjE1NSIgaGVpZ2h0PSI4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KIDwhLS0gQ3JlYXRlZCB3aXRoIE1ldGhvZCBEcmF3IC0gaHR0cDovL2dpdGh1Yi5jb20vZHVvcGl4ZWwvTWV0aG9kLURyYXcvIC0tPgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI4NyIgd2lkdGg9IjE1NyIgeT0iLTEiIHg9Ii0xIi8+CiAgPGcgZGlzcGxheT0ibm9uZSIgb3ZlcmZsb3c9InZpc2libGUiIHk9IjAiIHg9IjAiIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiIGlkPSJjYW52YXNHcmlkIj4KICAgPHJlY3QgZmlsbD0idXJsKCNncmlkcGF0dGVybikiIHN0cm9rZS13aWR0aD0iMCIgeT0iMCIgeD0iMCIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSIvPgogIDwvZz4KIDwvZz4KIDxnPgogIDx0aXRsZT5MYXllciAxPC90aXRsZT4KICA8ZyBpZD0ic3ZnXzkiPgogICA8ZWxsaXBzZSByeT0iMjYiIHJ4PSIyNiIgaWQ9InN2Z18xIiBjeT0iMzMuNSIgY3g9IjM0LjUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjZmZmIi8+CiAgIDxlbGxpcHNlIHJ5PSIyNiIgcng9IjI2IiBpZD0ic3ZnXzMiIGN5PSIzMy41IiBjeD0iNjMuODY4NDkzIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI2ZmZiIvPgogICA8ZWxsaXBzZSByeT0iMjYiIHJ4PSIyNiIgaWQ9InN2Z182IiBjeT0iMzMuNSIgY3g9IjkxLjcxODg4IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI2ZmZiIvPgogICA8ZWxsaXBzZSByeT0iMjYiIHJ4PSIyNiIgaWQ9InN2Z183IiBjeT0iMzMuNSIgY3g9IjEyMS4wODczNzMiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSIjZmZmIi8+CiAgIDxyZWN0IGlkPSJzdmdfOCIgaGVpZ2h0PSI0NiIgd2lkdGg9IjE0MC4wMDAwMDYiIHk9IjMyLjUiIHg9IjcuNSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9IiNmZmYiLz4KICA8L2c+CiA8L2c+Cjwvc3ZnPg==';
 
