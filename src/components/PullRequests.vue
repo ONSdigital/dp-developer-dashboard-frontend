@@ -1,8 +1,7 @@
 <template>
-    <div v-if="pullRequests.length">
+    <!-- <div v-if="pullRequests.length > 0">
         <h2>Pull requests</h2>
-
-    </div>
+    </div> -->
 </template>
 
 <script>
