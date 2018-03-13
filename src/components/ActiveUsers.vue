@@ -1,5 +1,5 @@
 <template>
-<div class="users">
+<div v-if="activeUsers" class="users">
     <span class="users__body">{{ activeUsers }}</span>
     <span class="users__title">active users</span>
 </div>

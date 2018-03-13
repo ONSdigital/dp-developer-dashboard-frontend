@@ -177,9 +177,7 @@ export default {
             return [ ...pullRequests ];
         },
         buildActiveUsers () {
-            // return this.analytics.active_users['.value'];
             return this.analytics.active_users;
-            // return "651"
         }
     }
 }
