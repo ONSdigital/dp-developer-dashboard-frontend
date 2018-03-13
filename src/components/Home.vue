@@ -13,6 +13,7 @@
             <div class="page__body">
                 <BuildStatuses :buildStatuses="buildBuildStatuses()" />
                 <PullRequests :pullRequests="buildPullRequests()" />
+                <ActiveUsers :activeUsers="buildActiveUsers()" />
             </div>
             <div class="page__footer">
                 <Releases :releases="releases" />
@@ -25,6 +26,7 @@
 import Releases from './Releases';
 import BuildStatuses from './BuildStatuses';
 import PullRequests from './PullRequests';
+import ActiveUsers from './ActiveUsers';
 import firebase from 'firebase';
 import dateFormat from 'dateformat';
 
@@ -37,13 +39,15 @@ const db = app.database();
 const pullRequestsRef = db.ref('pull_requests');
 const releasesRef = db.ref('releases');
 const buildStatusesRef = db.ref('build_statuses');
+const analyticsRef = db.ref('analytics');
 
 export default {
     name: 'Home',
     components: {
         Releases,
         BuildStatuses,
-        PullRequests
+        PullRequests,
+        ActiveUsers
     },
     data () {
         return {
@@ -69,6 +73,13 @@ export default {
             readyCallback () {
                 this.isLoading = false;
             }
+        },
+        analytics: {
+            source: analyticsRef,
+            readyCallback () {
+                this.isLoading = false;
+            },
+            asObject: true
         }
     },
     ready () {
@@ -164,6 +175,11 @@ export default {
             });
 
             return [ ...pullRequests ];
+        },
+        buildActiveUsers () {
+            // return this.analytics.active_users['.value'];
+            return this.analytics.active_users;
+            // return "651"
         }
     }
 }
@@ -187,6 +203,7 @@ body, html {
     &__body {
         flex-grow: 1;
         overflow: scroll;
+        position: relative;
     }
 }
 
